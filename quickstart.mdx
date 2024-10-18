@@ -29,7 +29,7 @@ export const search = async ( value: string, page: number, limit: number, apiKey
         params: { search: value, limit: limit, page: page, chatHistory: chatHistory }
       },
       {
-        headers: { Authorization: `Bearer ${apiKey}` },
+        headers: { Authorization: `API-Key ${apiKey}` },
       }
     );
   } catch (error) {
