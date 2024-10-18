@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "OpenAPI Plant Store",
-    "description": "A sample API that uses a plant store as an example to demonstrate features in the OpenAPI specification",
+    "title": "AiDB",
+    "description": "Documentation pertaining to Belva's AiDB",
     "license": {
       "name": "MIT"
     },
@@ -10,63 +10,24 @@
   },
   "servers": [
     {
-      "url": "http://sandbox.mintlify.com"
+      "url": "https://nan.myio.store/api/document/v1/"
     }
   ],
   "security": [
     {
-      "bearerAuth": []
+      "bearer": []
     }
   ],
   "paths": {
-    "/plants": {
-      "get": {
-        "description": "Returns all plants from the system that the user has access to",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "description": "The maximum number of results to return",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Plant response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Plant"
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      },
+    "/search": {
       "post": {
-        "description": "Creates a new plant in the store",
+        "description": "The Search endpoint allows users to query AiDB. By leveraging advanced vector and semantic search capabilities, this endpoint retrieves relevant data based on both structured queries and contextual similarity. The system processes requests by searching across vectorized contextually enhanced data, returning matched records that satisfy specified filters or keywords, optimizing for precision and context relevance. Users can refine their searches by specifying parameters like profileId, date ranges, and other metadata fields. Search has two optional parameters, one for **chatHistory** and one for **linkedAccount**. Passing in chat history as opposed to a search query will allow the search value to be populated from the chat history. Therefore, you won't have to transform your conversational context into a search value as AiDB can handle this in real-time. Likewise, **LinkedAccount** allows you to pass in a user account ID that's governed by you. So you can setup and manage an AiDB for millions of your customers at scale.",
         "requestBody": {
-          "description": "Plant to add to the store",
+          "description": "Parameters to query AiDB",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewPlant"
+                "$ref": "#/components/schemas/SearchEmbeddings"
               }
             }
           },
@@ -74,11 +35,11 @@
         },
         "responses": {
           "200": {
-            "description": "plant response",
+            "description": "Embeddings",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Plant"
+                  "$ref": "#/components/schemas/Embeddings"
                 }
               }
             }
@@ -96,26 +57,194 @@
         }
       }
     },
-    "/plants/{id}": {
+    "/uml": {
+      "post": {
+        "description": "The File Upload endpoint enables users to submit documents to AiDB for storage and contextual data processing. Files uploaded through this endpoint are processed to extract key information and metadata, allowing for efficient search and retrieval. Supported file types include common formats such as DOCX, PDF, TXT, and image files (JPEG, PNG). Once uploaded, each document is securely stored and indexed, making it easy to retrieve and integrate into search queries or further data analysis.",
+        "requestBody": {
+          "description": "Parameters to upload AiDB",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UploadFile"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Data Uploaded Successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Data Uploaded Successfully"
+                    }
+                  }
+                }
+              }
+            }
+          },  
+          "400": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/allKnowledgeBases": {
+      "get": {
+        "description": "Gets all knowledgebases",
+        "requestBody": {
+          "description": "Gets all knowledgebases",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetKnowledgebases"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "KnowledgeBases found successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Knowledgebases"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/knowledgebase": {
+      "post": {
+        "description": "Creates a new knowledgebase",
+        "requestBody": {
+          "description": "Creates a new knowledgebase",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/KnowledgebaseCreation"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "KnowledgeBase Created Successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Knowledgebase"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "description": "Updates a new knowledgebase",
+        "requestBody": {
+          "description": "Updates a new knowledgebase",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/KnowledgebaseCreation"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "KnowledgeBase Updated Successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Knowledgebase"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/knowledgebase/{kb_id}": {
       "delete": {
-        "description": "Deletes a single plant based on the ID supplied",
+        "description": "Deletes a knowledgebase based on the ID supplied",
         "parameters": [
           {
-            "name": "id",
+            "name": "kb_id",
             "in": "path",
-            "description": "ID of plant to delete",
+            "description": "ID of knowledgebase to delete",
             "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int64"
+              "type": "string",
+              "format": "uuid"
             }
           }
         ],
         "responses": {
-          "204": {
-            "description": "Plant deleted",
-            "content": {}
-          },
+          "200": {
+            "description": "Deleted KnowledgeBase Successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Deleted KnowledgeBase Successfully"
+                    }
+                  }
+                }
+              }
+            }
+          },          
           "400": {
             "description": "unexpected error",
             "content": {
@@ -132,6 +261,172 @@
   },
   "components": {
     "schemas": {
+      "Embeddings": {
+        "type": "object",
+        "required": ["embeddings"],
+        "properties": {
+          "embeddings": {
+            "description": "An array of embedding objects",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Embedding"
+            }
+          }
+        }
+      },
+      "Embedding": {
+        "required": [
+          "fileName",
+          "documentId",
+          "text",
+          "score"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "The name of the document",
+            "type": "string"
+          },
+          "documentIds": {
+            "description": "UUID assigned to the document",
+            "type": "string"
+          },
+          "text": {
+            "description": "Contextualized text pertaining to the data",
+            "type": "string"
+          },
+          "score": {
+            "description": "Relative mapping score pertaining to the search query",
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "example": 0.7012
+          }
+        }
+      },
+      "SearchEmbeddings": {
+        "required": [
+          "search",
+          "limit",
+          "page"
+        ],
+        "type": "object",
+        "properties": {
+          "search": {
+            "description": "Search query",
+            "type": "string"
+          },
+          "chatHistory": {
+            "description": "History of LLM chatbot",
+            "type": "string"
+          },
+          "limit": {
+            "description": "How many records per page",
+            "type": "integer"
+          },
+          "page": {
+            "description": "What page with index starting at 1",
+            "type": "integer"
+          },
+          "kb_id": {
+            "description": "ID of the knowledgebase. If one isn't provided then this query is based in your general layer of AiDB",
+            "type": "string"
+          },
+          "linkedAccount": {
+            "description": "ID for the user's AiDB. If one isn't provided then the API key holder's  is used.",
+            "type": "string"
+          }
+        }
+      },
+      "UploadFile": {
+        "required": [
+          "id",
+          "chunk",
+          "chunkIndex",
+          "totalChunks"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "Generated UUID for the file chunk",
+            "type": "string"
+          },
+          "kb_id": {
+            "description": "ID of the knowledgebase. If one isn't provided then it is accessible in your general layer of AiDB",
+            "type": "string"
+          },
+          "totalChunks": {
+            "description": "Total chunks",
+            "type": "integer"
+          },
+          "chunkIndex": {
+            "description": "Chunk index number",
+            "type": "integer"
+          },
+          "chunk": {
+            "description": "Raw data - max size 512kb",
+            "type": "string",
+            "format": "binary"
+          },
+          "linkedAccount": {
+            "description": "ID for the user's AiDB. If one isn't provided then the API key holder's profile ID is used",
+            "type": "string"
+          }
+        }
+      },
+      "Knowledgebases": {
+        "type": "object",
+        "required": ["knowledgebases"],
+        "properties": {
+          "embeddings": {
+            "description": "An array of knowledgebase objects",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Knowledgebase"
+            }
+          }
+        }
+      },
+      "GetKnowledgebases": {
+        "type": "object",
+        "properties": {
+          "linkedAccount": {
+            "description": "ID for the user's AiDB. If one isn't provided then the API key holder's profile ID is used.",
+            "type": "string"
+          }
+        }
+      },
+      "KnowledgebaseCreation": {
+        "required": [
+          "title"
+        ],
+        "type": "object",
+        "properties": {
+          "title": {
+            "description": "The name of the knowledgebase",
+            "type": "string"
+          }
+        }
+      },
+      "Knowledgebase": {
+        "required": [
+          "id",
+          "title"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "The id of the knowledgebase",
+            "type": "string"
+          },
+          "title": {
+            "description": "The name of the knowledgebase",
+            "type": "string"
+          }
+        }
+      },
+
+
       "Plant": {
         "required": [
           "name"
@@ -186,7 +481,7 @@
       }
     },
     "securitySchemes": {
-      "bearerAuth": {
+      "bearer": {
         "type": "http",
         "scheme": "bearer"
       }
