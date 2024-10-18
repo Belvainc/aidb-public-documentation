@@ -1,33 +1,39 @@
 ---
-title: 'Introduction'
-description: 'Example section for showcasing API endpoints'
+title: 'Transform Data into Insights with Ease'
 ---
 
+The AiDB API offers a seamless and powerful way to integrate and manage your data with precision. Designed 
+to handle everything from secure file uploads to advanced contextual search. AiDB allows developers to 
+store, analyze, and retrieve information with remarkable accuracy. Just upload your files and AiDB 
+processes each document into a context-rich, searchable format, ready for immediate use.
+
+Whether you’re looking to add enhanced search capabilities to your app, streamline data handling, or automate 
+document insights, AiDB’s intuitive endpoints make it easy to transform raw data into actionable intelligence. 
+Ideal for applications requiring detailed information retrieval, AiDB ensures your data is not just stored but 
+fully accessible and ready for discovery.
+
+Key Features:
+
+**File Upload:** Effortlessly store documents with rich metadata for precise search and retrieval.
+
+**Contextual Search:** Retrieve documents and data based on context, relevance, and custom tags, elevating search beyond basic keyword matching.
+
+**Data Security:** AiDB is built with security in mind, ensuring your data is protected throughout the entire processing pipeline.
+
+Integrate AiDB’s API to add a powerful layer of intelligent data management to your applications.
+
 <Note>
-  If you're not looking to build API reference documentation, you can delete
-  this section by removing the api-reference folder.
+  Base API route that prepends all endpoints is -> **https://nan.myio.store/api/document/v1/**
 </Note>
-
-## Welcome
-
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
-
-<Card
-  title="Plant Store Endpoints"
-  icon="leaf"
-  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
->
-  View the OpenAPI specification file
-</Card>
 
 ## Authentication
 
-All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
+All API endpoints are authenticated using Bearer tokens.
 
 ```json
 "security": [
   {
-    "bearerAuth": []
+    "bearer": "1234-1234-1234-1234"
   }
 ]
 ```

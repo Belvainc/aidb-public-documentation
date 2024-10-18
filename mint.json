@@ -1,6 +1,6 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "Starter Kit",
+  "name": "AiDB",
   "logo": {
     "dark": "/logo/dark.svg",
     "light": "/logo/light.svg"
@@ -18,12 +18,12 @@
   "topbarLinks": [
     {
       "name": "Support",
-      "url": "mailto:hi@mintlify.com"
+      "url": "mailto:support@belva.ai"
     }
   ],
   "topbarCtaButton": {
     "name": "Dashboard",
-    "url": "https://dashboard.mintlify.com"
+    "url": "https://aidb.belva.ai"
   },
   "tabs": [
     {
@@ -35,17 +35,12 @@
     {
       "name": "Documentation",
       "icon": "book-open-cover",
-      "url": "https://mintlify.com/docs"
+      "url": "https://belva.mintlify.app/introduction"
     },
     {
-      "name": "Community",
-      "icon": "slack",
-      "url": "https://mintlify.com/community"
-    },
-    {
-      "name": "Blog",
-      "icon": "newspaper",
-      "url": "https://mintlify.com/blog"
+      "name": "AiDB",
+      "icon": "browser",
+      "url": "https://www.belva.ai"
     }
   ],
   "navigation": [
@@ -53,19 +48,7 @@
       "group": "Get Started",
       "pages": [
         "introduction",
-        "quickstart",
-        "development"
-      ]
-    },
-    {
-      "group": "Essentials",
-      "pages": [
-        "essentials/markdown",
-        "essentials/code",
-        "essentials/images",
-        "essentials/settings",
-        "essentials/navigation",
-        "essentials/reusable-snippets"
+        "quickstart"
       ]
     },
     {
@@ -75,17 +58,20 @@
       ]
     },
     {
-      "group": "Endpoint Examples",
+      "group": "Endpoints",
       "pages": [
-        "api-reference/endpoint/get",
-        "api-reference/endpoint/create",
-        "api-reference/endpoint/delete"
+        "api-reference/endpoint/upload",
+        "api-reference/endpoint/search",
+        "api-reference/endpoint/knowledgebaseGetAll",
+        "api-reference/endpoint/knowledgebasePost",
+        "api-reference/endpoint/knowledgebasePut",
+        "api-reference/endpoint/knowledgebaseDelete"
       ]
     }
   ],
   "footerSocials": {
-    "x": "https://x.com/mintlify",
-    "github": "https://github.com/mintlify",
-    "linkedin": "https://linkedin.com/company/mintlify"
+    "x": "https://x.com/belvainc",
+    "instagram": "https://www.instagram.com/belvainc",
+    "linkedin": "https://www.linkedin.com/company/belva-ai"
   }
 }
